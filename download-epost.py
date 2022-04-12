@@ -5,6 +5,10 @@ from os import path
 import requests
 from requests.adapters import HTTPAdapter, Retry
 
+if len(sys.argv) < 2 or len(sys.argv) > 3:
+    print(f"Usage: {sys.argv[0]} COOKIE_VALUE [DEST]")
+    exit()
+
 cookies = sys.argv[1]
 
 headers = {
@@ -24,9 +28,12 @@ s.mount("https://", HTTPAdapter(max_retries=retries))
 response = requests.get("https://www.canadapost-postescanada.ca/inbox/en", headers=headers)
 
 sso_tokens = re.findall('"sso-token" content="([a-z0-9\-]*)"', response.text)
-sso_token = [token for token in sso_tokens if token][0]
-print(f"CSRF token is {sso_token}")
-headers["csrf"] = sso_token
+potential_sso_tokens = [token for token in sso_tokens if token]
+if not potential_sso_tokens:
+    print("Failed getting a SSO token. Are you sure you provided your up to date cookies? 🤔")
+    exit()
+
+headers["csrf"] = potential_sso_tokens[0]
 
 while True:
     url = f"https://www.canadapost-postescanada.ca/inbox/rs/mailitem?folderId=0&sortField=1&order=D&offset={offset}&limit={page_size}"
@@ -36,7 +43,7 @@ while True:
         break
 
     if "content-length" in response.headers and response.headers["content-length"] == "0":
-        print("Failed getting a response. Are you sure you put in your cookies and csrf token? 🤔")
+        print("Failed getting a response. Are you sure you provided your up to date cookies? 🤔")
         exit()
 
     data = response.json()
