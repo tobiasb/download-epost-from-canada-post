@@ -20,6 +20,7 @@ page_size = 50
 offset = 0
 num_processed = 0
 num_total = 0
+downloaded = 0
 
 s = requests.Session()
 retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
@@ -76,8 +77,9 @@ while True:
         with open(file_location, mode="bw") as f:
             f.write(response.content)
 
+        downloaded += 1
         num_processed += 1
 
     offset += page_size
 
-print(f"Processed {num_processed} of {num_total}! 🎉")
+print(f"Processed {num_processed} of {num_total}! Downloaded {downloaded} new documents. 🎉")
