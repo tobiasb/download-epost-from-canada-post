@@ -7,7 +7,7 @@ Requirements: `Python` and Python package `requests` installed.
 1. Open the developer tools of your favorite browser
 2. Log in to https://www.canadapost-postescanada.ca/inbox/en#!/inbox
 3. Open the request to https://www.canadapost-postescanada.ca/inbox/rs/mailitem and get the value of the `Cookie` request header
-4. [*OPTIONAL*] Open the epost folder that you'd like to download and get the folder id from the end of the folder URL (i.e. `1234567` from the folder URL https://www.canadapost-postescanada.ca/inbox/en#!/folder/details/**1234567**)
+4. [*OPTIONAL*] Open the epost folder that you'd like to download and get the folder id from the end of the folder URL (i.e. `1234567` from the folder URL https://www.canadapost-postescanada.ca/inbox/en#!/folder/details/1234567)
 
 Run `python download-epost.py --cookies '<COOKIE_VALUES>'`. Enclose your cookie values in single quotes as it can contain characters that could be interpreted by your shell.
 
