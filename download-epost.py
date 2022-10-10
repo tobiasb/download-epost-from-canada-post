@@ -4,7 +4,6 @@ from os import path
 
 import requests
 from requests.adapters import HTTPAdapter, Retry
-
 if len(sys.argv) < 2 or len(sys.argv) > 3:
     print(f"Usage: {sys.argv[0]} COOKIE_VALUE [DEST]")
     exit()
@@ -58,7 +57,8 @@ while True:
 
     for mail_item in data["mailitemInfos"]:
         desc = mail_item["shortDescription"]
-        file_name = f'{desc}.{mail_item["mailItemID"]}.pdf'.replace("/", "-")
+        file_name1 = f'{desc}.{mail_item["mailItemID"]}.pdf'.replace("/", "-")
+        file_name = file_name1.replace(":", "" )
         file_location = path.join(sys.argv[2] if len(sys.argv) > 2 else "", file_name)
         if path.exists(file_location):
             print(f"Already downloaded {file_location}, skipping 💪")
