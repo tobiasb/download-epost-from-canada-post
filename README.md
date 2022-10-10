@@ -6,8 +6,12 @@ Requirements: `Python` and Python package `requests` installed.
 
 1. Open the developer tools of your favorite browser 
 2. Log in to https://www.canadapost-postescanada.ca/inbox/en#!/inbox
-3. Open the request to https://www.canadapost-postescanada.ca/inbox/rs/mailitem and get the value of the `Cookie` request header
+3. Open the request to https://www.canadapost-postescanada.ca/inbox/rs/mailitem and get the value of the `Cookie` request header    
+* In your browser right click anywhere on the page and look for 'Inspect', then select 'Network'. This should be in the first HTTP request. See images.
 
-Run `python download-epost.py '<cookie value>'` or `python download-epost.py '<cookie value>' <dest>`. Enclose your cookie value in single quotes as it can contain characters that'd be interpreted by your shell.
+![Network Inspect](https://github.com/Jakesta13/download-epost-from-canada-post/blob/main/Inspect%20Network.PNG?raw=true)    
+![Cookie Example](https://github.com/Jakesta13/download-epost-from-canada-post/blob/main/Epost%20Cookie%20Example.png?raw=true)    
+
+Run `python download-epost.py "'<cookie value>'"` or `python download-epost.py "'<cookie value>'" <dest>`. Enclose your cookie value in double and single quotes as it can contain characters that'd be interpreted by your shell.
 
 You can run the script multiple times, it will only download files it hasn't downloaded already.
